@@ -46,7 +46,6 @@
             z-index: 9999;
 	    padding: 20px 0;
 	    height: 100px;
-
             transition: all 0.3s ease;
         }
         .navbar.scrolled {
@@ -152,18 +151,30 @@
 	     position: relative !important;  /* Changes from fixed to scrollable */
              display: block !important;
              background: var(--cream);
-             border-bottom: 2px solid var(--pine-medium);
              height: auto;
              padding: 15px 0;
+    	     width: 100%;
+    	     overflow-x: hidden;
          }
 
          .nav-links {
               display: none;  /* Hide desktop links */
          }
+	.nav-container {
+              width: 100%;
+              max-width: none;
+              padding: 0 15px;
+              overflow-x: hidden;
+          }
+    
+        .nav-text {
+              min-width: auto;
+              white-space: normal;
+          }
 
          .mobile-menu-btn {
              display: block;
-             background: none;
+	     background: none;
              border: none;
              font-size: 24px;
              color: var(--pine-dark);
@@ -213,8 +224,8 @@
         }
 
         .logo-image {
-            width: 60px; !important
-            height: 60px; !important
+            width: 60px; !important;
+            height: 60px; !important;
             background: linear-gradient(135deg, var(--pine-medium), var(--pine-light));
             border-radius: 8px;
             display: flex;
@@ -802,7 +813,7 @@
             observer.observe(el);
         });
 	function toggleMobileMenu() {
-    		const menu = document.getElementById('mobileMenu');
+		const menu = document.getElementById('mobileMenu');
     		menu.classList.toggle('active');
 	}
 
