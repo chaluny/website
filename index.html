@@ -44,8 +44,8 @@
             background: rgba(242, 232, 207, 0.05);  /* Almost transparent cream */
             backdrop-filter: blur(10px);
             z-index: 9999;
-            padding: 50px 0;
-            height: 80px;
+	    padding: 20px 0;
+	    height: 100px;
 
             transition: all 0.3s ease;
         }
@@ -132,6 +132,13 @@
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(106, 153, 78, 0.3);
         }
+	.mobile-menu-btn {
+	    display: none;  /* Hidden on desktop */
+	}
+	.mobile-menu {
+	    display: none;  /* Hidden on desktop */
+	}
+
 
         .nav-links a:hover {
             background: rgba(106, 153, 78, 0.2);
@@ -141,16 +148,61 @@
 
         /* Mobile Responsive - Hide navbar on mobile */
         @media (max-width: 768px) {
-            .navbar {
-                display: none !important;
+        .navbar {
+	     position: relative !important;  /* Changes from fixed to scrollable */
+             display: block !important;
+             background: var(--cream);
+             border-bottom: 2px solid var(--pine-medium);
+             height: auto;
+             padding: 15px 0;
+         }
+
+         .nav-links {
+              display: none;  /* Hide desktop links */
+         }
+
+         .mobile-menu-btn {
+             display: block;
+             background: none;
+             border: none;
+             font-size: 24px;
+             color: var(--pine-dark);
+             cursor: pointer;
+          } 
+
+ 	  .mobile-menu {
+              display: none;
+              position: absolute;
+              top: 100%;
+              left: 0;
+              right: 0;
+              background: var(--cream);
+              border-bottom: 2px solid var(--pine-medium);
+              z-index: 999;
+            }
+
+           .mobile-menu.active {
+              display: block;
+            }
+
+          .mobile-menu a {
+             display: block;
+             padding: 15px 20px;
+             color: var(--pine-dark);
+             text-decoration: none;
+             border-bottom: 1px solid rgba(106, 153, 78, 0.2);
+            }
+
+            .mobile-menu a:hover {
+              background: rgba(106, 153, 78, 0.1);
             }
         }
 
         /* Header Section */
         .header-section {
             background-color: var(--cream);
-            padding: 3rem 0 5rem 0;
-            min-height: 70vh;
+            padding: 8rem 0 5rem 0;
+            min-height: 70§vh;
         }
 
         .header-content {
@@ -161,8 +213,8 @@
         }
 
         .logo-image {
-            width: 2px; !important
-            height: 2px; !important
+            width: 60px; !important
+            height: 60px; !important
             background: linear-gradient(135deg, var(--pine-medium), var(--pine-light));
             border-radius: 8px;
             display: flex;
@@ -533,25 +585,41 @@
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo-section">
-		<div class="nav-logo-image">
-                    <img src="images/logo.png" alt="Pine Economics Logo">
-                </div>
-                <div class="header-text">
-                    <div class="company-name">Pine Economics</div>
-                    <div class="company-tagline">Work that matters with people who care</div>
-                </div>
-            </div>
-            
-            <ul class="nav-links">
-                <a href="#header">Home</a>
-                <a href="#about">About</a>
-                <a href="#services">Services</a>
-                <a href="#articles">Articles</a>
-                <a href="#contact">Contact</a>
-            </ul>
-        </div>
+	<div class="nav-container">
+		<div class="nav-logo-section">
+			<div class="nav-logo-image">
+            		<img src="images/logo.png" alt="Pine Economics Logo">
+        		</div>
+        		<div class="nav-text">
+            			<div class="nav-company-name">Pine Economics</div>
+            			<div class="nav-company-tagline">Work that matters with people who care</div>
+       		 	</div>
+    		</div>
+    
+    		<!-- Desktop Navigation -->
+    		<ul class="nav-links">
+        		<li><a href="#home">Home</a></li>
+        		<li><a href="#about">About</a></li>
+        		<li><a href="#services">Services</a></li>
+        		<li><a href="#articles">Articles</a></li>
+        		<li><a href="#contact">Contact</a></li>
+    		</ul>
+    
+    		<!-- Mobile Menu Button -->
+    		<button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        	☰
+    		</button>
+    
+    		<!-- Mobile Menu -->
+    		<div class="mobile-menu" id="mobileMenu">
+        		<a href="#home" onclick="closeMobileMenu()">Home</a>
+        		<a href="#about" onclick="closeMobileMenu()">About</a>
+        		<a href="#services" onclick="closeMobileMenu()">Services</a>
+        		<a href="#articles" onclick="closeMobileMenu()">Articles</a>
+        		<a href="#contact" onclick="closeMobileMenu()">Contact</a>
+    		</div>
+	</div>        
+
     </nav>
 
     <!-- Header Section -->
@@ -733,6 +801,15 @@
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(el);
         });
+	function toggleMobileMenu() {
+    		const menu = document.getElementById('mobileMenu');
+    		menu.classList.toggle('active');
+	}
+
+	function closeMobileMenu() {
+    		const menu = document.getElementById('mobileMenu');
+    		menu.classList.remove('active');
+	}
     </script>
 </body>
 </html>
