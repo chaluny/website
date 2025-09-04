@@ -131,14 +131,12 @@
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(106, 153, 78, 0.3);
         }
-	.mobile-menu-btn {
-	    display: none;  /* Hidden on desktop */
-	}
-	.mobile-menu {
-	    display: none;  /* Hidden on desktop */
-	}
-
-
+	    .mobile-menu-btn {
+	        display: none;  /* Hidden on desktop */
+	    }
+	    .mobile-menu {
+	     display: none;  /* Hidden on desktop */
+	    }
         .nav-links a:hover {
             background: rgba(106, 153, 78, 0.2);
             border: 1px solid var(--pine-medium);
@@ -148,24 +146,33 @@
         /* Mobile Responsive - Hide navbar on mobile */
         @media (max-width: 768px) {
         .navbar {
-	     position: relative !important;  /* Changes from fixed to scrollable */
+	         position: fixed !important;  /* Changes from fixed to scrollable */
              display: block !important;
              background: var(--cream);
              height: auto;
-             padding: 15px 0;
+             padding: 0;
+             top: 0;
+             left: 0;
+             right: 0;
     	     width: 100%;
-    	     overflow-x: hidden;
+             z-index: 9999;
+    	     overflow-x: visible;
          }
 
          .nav-links {
               display: none;  /* Hide desktop links */
          }
-	.nav-container {
-              width: 100%;
-              max-width: none;
-              padding: 0 15px;
-              overflow-x: hidden;
-          }
+	    .nav-container {
+            position: relative;
+            width: 100%;
+            max-width: none;
+            padding: 0 15px;
+            height: 100px;                /* Match navbar height */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+        }
     
         .nav-text {
               min-width: auto;
@@ -173,28 +180,24 @@
           }
 
          .mobile-menu-btn {
-             display: block;
-	     background: none;
-             border: none;
-             font-size: 24px;
-             color: var(--pine-dark);
-             cursor: pointer;
+            display: block;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--pine-dark);
+            cursor: pointer;
           } 
 
- 	  .mobile-menu {
-              display: none;
-              position: absolute;
-              top: 100%;
-              left: 0;
-              right: 0;
-              background: var(--cream);
-              border-bottom: 2px solid var(--pine-medium);
-              z-index: 999;
-            }
-
-           .mobile-menu.active {
-              display: block;
-            }
+ 	     .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 100px;                   /* Just below navbar */
+            left: 0;
+            right: 0;
+            background: var(--cream);
+            border-bottom: 2px solid var(--pine-medium);
+            z-index: 10000;
+        }
 
           .mobile-menu a {
              display: block;
@@ -202,12 +205,17 @@
              color: var(--pine-dark);
              text-decoration: none;
              border-bottom: 1px solid rgba(106, 153, 78, 0.2);
+             z-index: 10000;
+            }
+          .mobile-menu.active {
+             display: block !important;
             }
 
             .mobile-menu a:hover {
               background: rgba(106, 153, 78, 0.1);
             }
         }
+
 
         /* Header Section */
         .header-section {
@@ -621,6 +629,8 @@
         	☰
     		</button>
     
+
+	</div>        
     		<!-- Mobile Menu -->
     		<div class="mobile-menu" id="mobileMenu">
         		<a href="#home" onclick="closeMobileMenu()">Home</a>
@@ -629,8 +639,6 @@
         		<a href="#articles" onclick="closeMobileMenu()">Articles</a>
         		<a href="#contact" onclick="closeMobileMenu()">Contact</a>
     		</div>
-	</div>        
-
     </nav>
 
     <!-- Header Section -->
