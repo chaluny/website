@@ -34,6 +34,117 @@
             margin: 0 auto;
             padding: 0 20px;
         }
+        /* Navigation Bar - Almost Transparent */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background: rgba(242, 232, 207, 0.05);  /* Almost transparent cream */
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            padding: 50px 0;
+            height: 80px;
+
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(242, 232, 207, 0.15);  /* Slightly more visible when scrolled */
+            backdrop-filter: blur(15px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .nav-logo-section {
+    	    display: flex;           /* Container is flex */
+            flex-direction: row;     /* Items go left to right */
+            align-items: center;     /* Center vertically */
+            gap: 0.75rem;           /* Space between logo and text */
+	    flex-wrap: nowrap;
+	}
+
+        .nav-logo-image {
+            width: 100px;
+            height: 100px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-logo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .nav-text {
+            display: flex;
+            flex-direction: column;
+	    align-self: center;
+	    min-width: 200px;
+    	    white-space: nowrap;
+        }
+
+        .nav-company-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--pine-dark);
+            line-height: 1.1;
+        }
+
+        .nav-company-tagline {
+            font-size: 0.8rem;
+            color: var(--pine-medium);
+            font-weight: 400;
+            line-height: 1.1;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--pine-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 0 5px;
+            white-space: nowrap;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(106, 153, 78, 0.3);
+        }
+
+        .nav-links a:hover {
+            background: rgba(106, 153, 78, 0.2);
+            border: 1px solid var(--pine-medium);
+            transform: translateY(-1px);
+        }
+
+        /* Mobile Responsive - Hide navbar on mobile */
+        @media (max-width: 768px) {
+            .navbar {
+                display: none !important;
+            }
+        }
 
         /* Header Section */
         .header-section {
@@ -44,14 +155,14 @@
 
         .header-content {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 1rem;
             margin-bottom: 3rem;
         }
 
-        .logo-icon {
-            width: 50px;
-            height: 50px;
+        .logo-image {
+            width: 2px; !important
+            height: 2px; !important
             background: linear-gradient(135deg, var(--pine-medium), var(--pine-light));
             border-radius: 8px;
             display: flex;
@@ -420,17 +531,34 @@
     </style>
 </head>
 <body>
-    <!-- Header Section -->
-    <section class="header-section">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-image">
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo-section">
+		<div class="nav-logo-image">
                     <img src="images/logo.png" alt="Pine Economics Logo">
                 </div>
                 <div class="header-text">
                     <div class="company-name">Pine Economics</div>
                     <div class="company-tagline">Work that matters with people who care</div>
                 </div>
+            </div>
+            
+            <ul class="nav-links">
+                <a href="#header">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#articles">Articles</a>
+                <a href="#contact">Contact</a>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="header-section">
+        <div class="container">
+            <div class="header-content">
+
             </div>
             
             <h1 class="hero-title">Work that matters, with people who care</h1>
@@ -558,6 +686,7 @@
     </section>
 
     <script>
+
         // Add navbar scroll effect
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
