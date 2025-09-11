@@ -183,19 +183,32 @@
         }
 
         /* Subtle animation */
-        .container {
-            animation: fadeInUp 0.8s ease-out;
+/* Hide elements initially and set up animations */
+            .logo {
+                opacity: 0;
+                animation: fadeIn 0.8s ease-in-out 0.1s forwards;
+            }
+
+            .coming-soon {
+                opacity: 0;
+                animation: fadeIn 0.8s ease-in-out 0.3s forwards;
+            }
+
+            .signup-form {
+                opacity: 0;
+                animation: fadeIn 0.8s ease-in-out 0.5s forwards;
         }
 
-        @keyframes fadeInUp {
+        /* Animation keyframes */
+        @keyframes fadeIn {
             from {
-                opacity: 0;
-                transform: translateY(30px);
+            opacity: 0;
+            transform: translateY(20px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
-            }
+                }
         }
     </style>
 </head>
