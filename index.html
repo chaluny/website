@@ -22,7 +22,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;;
             background-color: var(--cream);
             min-height: 100vh;
             display: flex;
@@ -45,7 +45,7 @@
         .logo {
             width: 500px;
             height: 500px;
-            margin: 0 auto 3rem;
+            margin: 0 auto 0rem;
             display: block;
         }
 
@@ -100,7 +100,7 @@
             color: #008000;
             cursor: pointer;
             display: inline-block;
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 1em;
             height: 50px;
             padding: 0 15px;
@@ -125,7 +125,26 @@
             margin-top: 1rem;
             font-weight: 500;
         }
+        .coming-soon {
+            margin-bottom: 2rem;
+            color: var(--pine-dark);
+        }
 
+        .coming-soon h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0.5rem 0 2rem 0;
+            color: var(--accent);
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 900;
+        }
+
+        .coming-soon p {
+            font-size: 1.2rem;
+            color: var(--pine-medium);
+            margin-bottom: 0;
+        }
+        
         /* Responsive Design */
         @media (max-width: 600px) {
             .logo {
@@ -140,6 +159,15 @@
 
             .form-title {
                 font-size: 1.2rem;
+            }
+            .coming-soon h1 {
+                font-size: 2rem;
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-weight: 900;
+            }
+    
+            .coming-soon p {
+                font-size: 1rem;
             }
 
             body {
@@ -176,7 +204,10 @@
         <div class="logo">
             <img src="images/logo_full.png" alt="Pine Economics Logo">
         </div>
-        
+        <div class="coming-soon">
+            <h1>Coming Soon</h1>
+        </div>
+
         <form class="signup-form" id="emailForm" netlify>
             <h1 class="form-title">Keep me posted</h1>
             
