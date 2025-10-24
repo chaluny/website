@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Pine Economics</title>
+    <meta name="description" content="Learn about Pine Economics and our approach to transport economics analysis and sustainable investment.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pine-dark: #386641;
+            --pine-medium: #6A994E;
+            --pine-light: #A7C957;
+            --cream: #F2E8CF;
+            --accent: #BC4749;
+            --white: #ffffff;
+            --text-dark: #2c3e50;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--cream);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(56, 102, 65, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo-section {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-logo-image {
+            width: 50px;
+            height: 50px;
+        }
+
+        .nav-logo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .nav-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-company-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--pine-dark);
+            line-height: 1.1;
+        }
+
+        .nav-company-tagline {
+            font-size: 0.8rem;
+            color: var(--pine-medium);
+            font-weight: 400;
+            line-height: 1.1;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--pine-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 0 5px;
+            white-space: nowrap;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(106, 153, 78, 0.3);
+        }
+
+        .nav-links a:hover {
+            background: rgba(106, 153, 78, 0.2);
+            border: 1px solid var(--pine-medium);
+        }
+
+        .nav-links a.active {
+            background: var(--pine-medium);
+            color: white;
+            border: 1px solid var(--pine-medium);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(56, 102, 65, 0.7), rgba(56, 102, 65, 0.7)), url('images/eastlondon2.png') center/cover;
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            font-weight: 400;
+            opacity: 0.95;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* About Section */
+        .about-intro {
+            background-color: var(--cream);
+            padding: 60px 0;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            color: var(--pine-dark);
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            text-align: left;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--pine-dark);
+            margin-bottom: 50px;
+            margin: 25px 180px;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            background-color: white;
+            padding: 60px 0;
+            
+            
+        }
+
+        .project-item {
+            background: var(--cream);
+            border-left: 4px solid var(--pine-medium);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+            max-width: 800px;
+            margin: 0 auto 25px;
+        }
+
+        .project-content {
+            
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+        }
+
+        .project-text {
+            flex: 1;
+        }
+
+        .project-text h3 {
+            font-size: 1.3rem;
+            color: var(--pine-dark);
+            margin-bottom: 10px;
+        }
+
+        .project-text p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-dark);
+        }
+
+        .project-logo {
+            width: 130px;
+            height: 130px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 50px;
+        }
+
+        .project-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .about-content h2 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+            .project-content {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .project-logo {
+                margin-top: 0;
+                margin-bottom: 10px;
+            }
+
+            .company-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+        }
+        /* Contact Section */
+        .contact-section {
+            background: var(--cream);
+            padding: 1rem 0;
+            position: relative;
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 3rem;
+        }
+
+        .contact-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--pine-dark);
+            margin-bottom: 1rem;
+        }
+
+
+        
+        .contact-simple {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-simple p {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .contact-simple a {
+            color: var(--pine-medium);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-simple a:hover {
+            color: var(--pine-dark);
+        }
+
+        @media (max-width: 480px) {
+            .hero-section {
+                min-height: 40vh;
+                padding: 2rem 0;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .about-intro,
+            .experience-section,
+            .projects-section {
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo-section">
+                <div class="nav-logo-image">
+                    <img src="images/logo.png" alt="Pine Economics Logo">
+                </div>
+                <div class="nav-text">
+                    <div class="nav-company-name">Pine Economics</div>
+                    <div class="nav-company-tagline">Work that matters with people who care</div>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="Services.html">Services</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">About Pine Economics</h1>
+                <p class="hero-subtitle"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Intro -->
+    <section class="about-intro">
+        <div class="container">
+            <div class="about-content">
+                <h2>The Approach</h2>
+                <p>I provide specialist transport economics and strategic advice to help organisations overcome their most complex challenges.</p>
+                <p>I believe that robust, evidence-led analysis is the foundation of any successful transport strategy. However, analysis alone is not enough.</p>
+                <p>My approach is built on three core principles:</p>
+                <ul>
+                    <li><strong>Analytical Rigour:</strong> I dive deep into the evidence, models, and appraisal methods to ensure every recommendation is built on a solid, defensible foundation. I am fluent in the requirements of the Green Book and Transport Analysis Guidance, ensuring my work meets the highest standards of scrutiny.</li>
+                    <br><li><strong>Strategic Narrative:</strong> I translate complex economic analysis into clear, compelling narratives that resonate with decision-makers, stakeholders, and the public. Many projects fail not because they have a strong case, but because nobody understands their rationale.</li>
+                    <br><li><strong>Collaborative Problem-Solving:</strong> I engage directly with stakeholders to understand their aspirations and constraints. This ensures my solutions are not only technically sound but also politically and commercially deliverable.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notable Projects Section -->
+    <section class="projects-section">
+        <div class="container">
+            <h2 class="section-title">Notable Projects</h2>
+            
+            <div class="project-item">
+                <div class="project-content">
+                    <div class="project-text">
+                        <h3>Rescuing a Bus Franchising Business Case</h3>
+                        <p>After two failed audit reports, a Mayoral Combined Authority needed to get its bus franchising business case approved. I was brought in to lead a complete overhaul. By forensically reviewing the analysis, improving operational cost data through operator engagement, and refocusing the case on core regulatory benefits, I led the project to a successful audit approval within just four months. This paved the way for ambitious, publicly supported bus reform.</p>
+                    </div>
+                    <div class="project-logo">
+                        <img src="icons/bus2.png" alt="Company Logo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-content">
+                    <div class="project-text">
+                        <h3>Innovative Analysis for National Rail Reform</h3>
+                        <p>During the development of a landmark national rail reform plan, I delivered an economic framework to estimate benefits and analyse potential savings. The key challenge was the high degree of uncertainty. To tackle this, I led the development of an innovative uncertainty assessment framework that scored each saving initiative, allowing decision-makers to see potential savings based on different confidence levels. This novel approach enabled informed, risk-based investment decisions and gained the trust of government stakeholders.</p>
+                    </div>
+                    <div class="project-logo">
+                        <img src="icons/Train2.png" alt="Company Logo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-content">
+                    <div class="project-text">
+                        <h3>National Bus Services Procurement Policy</h3>
+                        <p>To support the reform of local bus services, a central government transport department sought to provide clear guidance for local authorities on choosing the right procurement model. I led an in-depth study, conducting an international benchmark of bus procurement models from around the world. Our analysis unpacked the economic drivers behind each model's success, linking them to specific outcomes on cost, quality, and network coverage. By engaging with policy officials, procurement experts, and economists, our work provided the robust evidence base needed to shape national policy and empower local authorities to make confident decisions about the future of their bus networks.</p>
+                    </div>
+                    <div class="project-logo">
+                        <img src="icons/contract2.png" alt="Company Logo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-content">
+                    <div class="project-text">
+                        <h3>Train Service Frequency</h3>
+                        <p>To ensure train service levels are decided consistently and transparently, a central government transport department commissioned my team to recommend a new nationwide policy. I led all aspects of this project, developing an innovative framework to systematically estimate and compare rail demand potential between different origin-destination pairs. The methodology I developed was adopted by the department and used to engage with Train Operating Companies on service changes, creating a more robust, evidence-based approach to timetabling.</p>
+                    </div>
+                    <div class="project-logo">
+                        <img src="icons/clock2.png" alt="Company Logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <h2 class="contact-title">Contact</h2>
+            
+                <div class="contact-simple">
+                    <p><strong>Email:</strong> <a href="mailto:info@pineconomics.com">info@pineconomics.com</a></p>
+                    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/omer-bor-54328061/" target="_blank">Omer (Rafael) Bor</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
