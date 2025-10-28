@@ -180,12 +180,19 @@
         }
 
         .section-title {
-            text-align: left;
+            text-align: left; !important
             font-size: 2.5rem;
             font-weight: 700;
             color: var(--pine-dark);
             margin-bottom: 50px;
             margin: 25px 180px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            text-align: left; !important;
+            margin-bottom: 20px;
+            color: var(--pine-dark);
         }
 
         /* Projects Section */
@@ -247,11 +254,42 @@
             max-height: 100%;
             object-fit: contain;
         }
+        .mobile-menu-btn {
+	        display: none;  /* Hidden on desktop */
+	    }
+        .mobile-menu {
+            display: none;
+        }
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            .navbar {
+	         position: static !important;  /* Changes from fixed to scrollable */
+             display: block !important;
+             background: var(--white);
+             height: auto;
+             padding: 0;
+             top: 0;
+             left: 0;
+             right: 0;
+    	     width: 100%;
+             z-index: 9999;
+    	     overflow-x: visible;
+            }
+
             .nav-links {
-                display: none;
+            display: none;  /* Hide desktop links */
+            }
+	        
+            .nav-container {
+            position: relative;
+            width: 100%;
+            max-width: none;
+            padding: 0 15px;
+            height: 100px;                /* Match navbar height */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             }
 
             .hero-title {
@@ -268,6 +306,13 @@
 
             .section-title {
                 font-size: 2rem;
+                margin: 0px 0px;
+            }
+            .section-title h2 {
+                font-size: 2.5rem;
+                text-align: left !important;
+                margin-bottom: 20px;
+                margin-left: 0;
             }
 
             .experience-grid {
@@ -290,6 +335,46 @@
 
             .container {
                 padding: 0 15px;
+            }
+
+            .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--pine-dark);
+            cursor: pointer;
+            } 
+
+ 	        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100px;                   /* Just below navbar */
+            left: 0;
+            right: 0;
+            background: var(--cream);
+            border-bottom: 2px solid var(--pine-medium);
+            z-index: 10000;
+            }
+
+            .mobile-menu a {
+             display: block;
+             padding: 15px 20px;
+             color: var(--pine-dark);
+             text-decoration: none;
+             border-bottom: 1px solid rgba(106, 153, 78, 0.2);
+             z-index: 10000;
+            }
+
+            .mobile-menu.active {
+             display: block !important;
+            }
+
+            .mobile-menu a:hover {
+              background: rgba(106, 153, 78, 0.1);
+            }
+            projects-section {
+                padding: 40px 0;
             }
         }
         /* Contact Section */
@@ -360,27 +445,42 @@
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo-section">
-                <div class="nav-logo-image">
-                    <img src="images/logo.png" alt="Pine Economics Logo">
-                </div>
-                <div class="nav-text">
-                    <div class="nav-company-name">Pine Economics</div>
-                    <div class="nav-company-tagline">Work that matters with people who care</div>
-                </div>
-            </div>
-            
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html" class="active">About</a></li>
-                <li><a href="Services.html">Services</a></li>
-                <li><a href="articles.html">Articles</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
+    <nav class="navbar" id="navbar">
+	<div class="nav-container">
+		<div class="nav-logo-section">
+			<div class="nav-logo-image">
+            		<img src="images/logo.png" alt="Pine Economics Logo">
+        		</div>
+        		<div class="nav-text">
+            			<div class="nav-company-name">Pine Economics</div>
+            			<div class="nav-company-tagline">Work that matters with people who care</div>
+       		 	</div>
+    		</div>
+    
+    		<!-- Desktop Navigation -->
+    		<ul class="nav-links">
+        		<li><a href="index.html">Home</a></li>
+        		<li><a href="about.html" class="active">About</a></li>
+        		<li><a href="Services.html">Services</a></li>
+        		<li><a href="#articles">Articles</a></li>
+        		<li><a href="#contact">Contact</a></li>
+    		</ul>
+    
+    		<!-- Mobile Menu Button -->
+    		<button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        	☰
+    		</button>
+    
+
+	</div>        
+    		<!-- Mobile Menu -->
+    		<div class="mobile-menu" id="mobileMenu">
+        		<a href="#home" onclick="closeMobileMenu()">Home</a>
+        		<a href="#about" onclick="closeMobileMenu()">About</a>
+        		<a href="#services" onclick="closeMobileMenu()">Services</a>
+        		<a href="#articles" onclick="closeMobileMenu()">Articles</a>
+        		<a href="#contact" onclick="closeMobileMenu()">Contact</a>
+    		</div>
     </nav>
 
     <!-- Hero Section -->
@@ -413,8 +513,9 @@
     <!-- Notable Projects Section -->
     <section class="projects-section">
         <div class="container">
-            <h2 class="section-title">Notable Projects</h2>
-            
+            <div class="section-title">
+            <h2>Notable Projects</h2>
+            </div>
             <div class="project-item">
                 <div class="project-content">
                     <div class="project-text">
@@ -478,6 +579,18 @@
             </div>
         </div>
     </section>
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.remove('active');
+        }
+    </script>
 
 </body>
 </html>

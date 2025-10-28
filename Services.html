@@ -250,12 +250,44 @@
             max-height: 100%;
             object-fit: contain;
         }
+        .mobile-menu-btn {
+	        display: none;  /* Hidden on desktop */
+	    }
+	    .mobile-menu {
+	     display: none;  /* Hidden on desktop */
+        }
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            .navbar {
+	         position: static !important;  /* Changes from fixed to scrollable */
+             display: block !important;
+             background: var(--white);
+             height: auto;
+             padding: 0;
+             top: 0;
+             left: 0;
+             right: 0;
+    	     width: 100%;
+             z-index: 9999;
+    	     overflow-x: visible;
             }
+
+            .nav-links {
+            display: none;  /* Hide desktop links */
+            }
+	        
+            .nav-container {
+            position: relative;
+            width: 100%;
+            max-width: none;
+            padding: 0 15px;
+            height: 100px;                /* Match navbar height */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            }   
 
             .hero-title {
                 font-size: 2.5rem;
@@ -294,6 +326,48 @@
             .container {
                 padding: 0 15px;
             }
+
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 24px;
+                color: var(--pine-dark);
+                cursor: pointer;
+            } 
+
+            .mobile-menu {
+                display: none;
+                position: absolute;
+                top: 100px;                   /* Just below navbar */
+                left: 0;
+                right: 0;
+                background: var(--cream);
+                border-bottom: 2px solid var(--pine-medium);
+                z-index: 10000;
+            }
+
+            .mobile-menu a {
+             display: block;
+             padding: 15px 20px;
+             color: var(--pine-dark);
+             text-decoration: none;
+             border-bottom: 1px solid rgba(106, 153, 78, 0.2);
+             z-index: 10000;
+            }
+            
+            .mobile-menu.active {
+             display: block !important;
+            }
+
+            .mobile-menu a:hover {
+              background: rgba(106, 153, 78, 0.1);
+            }
+
+            .nav-links {
+              display: none;  /* Hide desktop links */
+            }
+
         }
         /* Contact Section */
         .contact-section {
@@ -364,26 +438,42 @@
 </head>
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo-section">
-                <div class="nav-logo-image">
-                    <img src="images/logo.png" alt="Pine Economics Logo">
-                </div>
-                <div class="nav-text">
-                    <div class="nav-company-name">Pine Economics</div>
-                    <div class="nav-company-tagline">Work that matters with people who care</div>
-                </div>
-            </div>
-            
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="#services" class="active">Services</a></li>
-                <li><a href="articles.html">Articles</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
+    <nav class="navbar" id="navbar">
+	<div class="nav-container">
+		<div class="nav-logo-section">
+			<div class="nav-logo-image">
+            		<img src="images/logo.png" alt="Pine Economics Logo">
+        		</div>
+        		<div class="nav-text">
+            			<div class="nav-company-name">Pine Economics</div>
+            			<div class="nav-company-tagline">Work that matters with people who care</div>
+       		 	</div>
+    		</div>
+    
+    		<!-- Desktop Navigation -->
+    		<ul class="nav-links">
+        		<li><a href="index.html">Home</a></li>
+        		<li><a href="about.html">About</a></li>
+        		<li><a href="Services.html" class="active">Services</a></li>
+        		<li><a href="#articles">Articles</a></li>
+        		<li><a href="#contact">Contact</a></li>
+    		</ul>
+    
+    		<!-- Mobile Menu Button -->
+    		<button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        	☰
+    		</button>
+    
+
+	</div>        
+    		<!-- Mobile Menu -->
+    		<div class="mobile-menu" id="mobileMenu">
+        		<a href="index.html" onclick="closeMobileMenu()">Home</a>
+        		<a href="about.html" onclick="closeMobileMenu()">About</a>
+        		<a href="Services.html" onclick="closeMobileMenu()">Services</a>
+        		<a href="#articles" onclick="closeMobileMenu()">Articles</a>
+        		<a href="#contact" onclick="closeMobileMenu()">Contact</a>
+    		</div>
     </nav>
 
     <!-- Hero Section -->
@@ -482,6 +572,19 @@
             </div>
         </div>
     </section>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.remove('active');
+        }
+    </script>
 
 </body>
 </html>
