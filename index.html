@@ -959,14 +959,20 @@
             try {
                 const response = await fetch(articlesFeedUrl);
                 const data = await response.json();
+
+                if (data.status !== 'ok') {
+                    console.error('RSS feed error:', data.message);
+                    document.getElementById('articles-posts').textContent = 'No articles available.';
+                    return;
+                }
+
                 const latestItems = (data.items || []).slice(0, 3);
 
             if (latestItems.length > 0) {
                 const postsHTML = latestItems.map(item => {
-                const imageUrlMatch = item.content.match(/<img src="([^"]+)"/);
-                const imageUrl = imageUrlMatch ? imageUrlMatch[1] : '';
+                const imageUrl = item.thumbnail || (item.content && item.content.match(/<img src="([^"]+)"/)?.[1]) || '';
                 const title = item.title;
-                const subtitle = item.description || 'No subtitle provided';
+                const subtitle = item.description ? item.description.replace(/<[^>]+>/g, '').trim() : 'No subtitle provided';
 
                 return `
                     <div class="post">

@@ -486,14 +486,20 @@
             try {
                 const response = await fetch(pineFeedUrl);
                 const data = await response.json();
+
+                if (data.status !== 'ok') {
+                    console.error('Pine RSS feed error:', data.message);
+                    document.getElementById('pine-posts').textContent = 'No posts available.';
+                    return;
+                }
+
                 const latestItems = (data.items || []).slice(0, 3);
 
                 if (latestItems.length > 0) {
                     const postsHTML = latestItems.map(item => {
-                        const imageUrlMatch = item.content.match(/<img src="([^"]+)"/);
-                        const imageUrl = imageUrlMatch ? imageUrlMatch[1] : '';
+                        const imageUrl = item.thumbnail || (item.content && item.content.match(/<img src="([^"]+)"/)?.[1]) || '';
                         const title = item.title;
-                        const subtitle = item.description || 'No subtitle provided';
+                        const subtitle = item.description ? item.description.replace(/<[^>]+>/g, '').trim() : 'No subtitle provided';
 
                         return `
                             <div class="post">
@@ -527,14 +533,20 @@
             try {
                 const response = await fetch(personalFeedUrl);
                 const data = await response.json();
+
+                if (data.status !== 'ok') {
+                    console.error('Personal RSS feed error:', data.message);
+                    document.getElementById('personal-posts').textContent = 'No posts available.';
+                    return;
+                }
+
                 const latestItems = (data.items || []).slice(0, 3);
 
                 if (latestItems.length > 0) {
                     const postsHTML = latestItems.map(item => {
-                        const imageUrlMatch = item.content.match(/<img src="([^"]+)"/);
-                        const imageUrl = imageUrlMatch ? imageUrlMatch[1] : '';
+                        const imageUrl = item.thumbnail || (item.content && item.content.match(/<img src="([^"]+)"/)?.[1]) || '';
                         const title = item.title;
-                        const subtitle = item.description || 'No subtitle provided';
+                        const subtitle = item.description ? item.description.replace(/<[^>]+>/g, '').trim() : 'No subtitle provided';
 
                         return `
                             <div class="post">
