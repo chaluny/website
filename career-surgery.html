@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8HLRKLEP1F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-8HLRKLEP1F');
+    </script>
+    <link rel="icon" type="image/png" href="images/all_abroad.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Aboard: Career Surgery — Pine Economics</title>
+    <meta name="description" content="Free one-to-one time with an experienced professional, for anyone who hasn't had their first job yet.">
+    <meta name="robots" content="noindex">
+
+    <!-- Social share card: swap this file once the Canva export exists (see brief below) -->
+    <meta property="og:title" content="All Aboard: Career Surgery — Pine Economics">
+    <meta property="og:description" content="Free one-to-one time with an experienced professional, for anyone who hasn't had their first job yet.">
+    <meta property="og:image" content="images/all_abroad.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            /* Ink & paper */
+            --ink: #1E2A22;
+            --paper: #FBF9F4;
+            --tint: #F2E8CF;
+
+            /* The four "lines" — Context (pine), Offer (amber), Terms (teal), Action (brick) */
+            --pine: #386641;
+            --amber: #C68A2E;
+            --teal: #2B6E77;
+            --brick: #BC4749;
+
+            --rule: rgba(30, 42, 34, 0.12);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'IBM Plex Sans', 'Segoe UI', Tahoma, sans-serif;
+            line-height: 1.7;
+            color: var(--ink);
+            background: var(--paper);
+            font-size: 17px;
+        }
+
+        h1, h2 {
+            font-family: 'Big Shoulders Display', 'Segoe UI', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.01em;
+            line-height: 1.05;
+        }
+
+        .eyebrow {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ink);
+            opacity: 0.75;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* IBM Plex Mono's 0 and capital O are near-identical at small sizes —
+           underline just the leading group letter so "O1" can't misread as "01" */
+        .eyebrow::first-letter, .station-code::first-letter {
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            text-decoration-thickness: 1.5px;
+        }
+
+        a { color: inherit; }
+
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--brick);
+            outline-offset: 3px;
+        }
+
+        /* ============ Brand strip ============ */
+        .brand-strip {
+            padding: 22px 0;
+            background: var(--paper);
+        }
+
+        .brand-strip .container {
+            max-width: 916px;
+        }
+
+        .brand-strip a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .brand-strip img { height: 28px; width: auto; opacity: 0.85; }
+
+        .brand-strip span {
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            color: var(--ink);
+            opacity: 0.7;
+        }
+
+        /* ============ Legend ============ */
+        .legend {
+            background: var(--paper);
+            padding-bottom: 18px;
+            padding-top: 18px;
+        }
+        
+        .legend .container { max-width: 916px; }
+
+        .legend-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 22px;
+            left: 35%;
+            position: absolute;
+        }
+
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--ink);
+            opacity: 0.65;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex: 0 0 auto;
+        }
+
+        /* ============ The line: measured route + stations ============ */
+        .band {
+            --band-bg: var(--paper);
+            background: var(--band-bg);
+        }
+
+        .band .container {
+            max-width: 916px;
+        }
+
+        /* #line-track wraps every band; #line-svg is one continuous overlay that
+           measures each station's real rendered position (some sit left, some
+           sit right, past the end of the text) and draws an octilinear route
+           between them — a straight run, then a 45° turn onto a 90° run, the
+           way an actual metro map is drawn. Text always renders above the
+           line (z-index 2 vs 1); the line runs behind it, semi-transparent. */
+        #line-track {
+            position: relative;
+        }
+
+        #line-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .rail-section {
+            position: relative;
+            padding: 44px 0;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            padding-left: 96px;
+            max-width: 740px;
+        }
+
+        .content h2 {
+            font-size: 1.9rem;
+            color: var(--ink);
+            margin-bottom: 16px;
+        }
+
+        .content p { margin-bottom: 16px; max-width: 62ch; }
+
+        .content p:last-child { margin-bottom: 0; }
+
+        /* Stations: most sit left, some sit right of the text column — the
+           line has to travel to reach them, which is what gives it real bends
+           instead of a straight bar with dots glued on. */
+        .station, .station-code {
+            position: absolute;
+            top: 26px;
+        }
+
+        .pos-left { left: 40px; }
+        .pos-right { right: 24px; }
+
+        .station {
+            transform: translate(-50%, -50%);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--line-color);
+            transition: transform 0.2s ease;
+            z-index: 3;
+        }
+
+        .station-code {
+            top: 52px;
+            transform: translateX(-50%);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: var(--line-color);
+            opacity: 0.95;
+            white-space: nowrap;
+            z-index: 3;
+        }
+
+        /* Interchange: hollow ring where the line changes colour */
+        .station.interchange {
+            width: 24px;
+            height: 24px;
+            background: var(--band-bg);
+            border: 3px solid var(--line-color);
+        }
+
+        /* Terminus: solid target mark, start and end of the whole line */
+        .station.terminus {
+            width: 26px;
+            height: 26px;
+            background: var(--line-color);
+            box-shadow: 0 0 0 4px var(--band-bg), 0 0 0 5px var(--line-color);
+        }
+        .station.terminus::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--band-bg);
+            transform: translate(-50%, -50%);
+        }
+
+        .rail-section.is-active .station { transform: translate(-50%, -50%) scale(1.18); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .station, html { transition: none !important; scroll-behavior: auto; }
+        }
+
+        /* ============ Hero (terminus band) ============ */
+        .hero-band {
+            --band-bg: var(--pine);
+            --line-color: var(--paper);
+            background: var(--pine);
+            color: var(--paper);
+        }
+
+        .hero-band .eyebrow { color: var(--paper); opacity: 0.75; }
+
+        .hero-band h1 {
+            font-size: clamp(2.2rem, 6vw, 3.6rem);
+            font-weight: 900;
+            margin-bottom: 18px;
+        }
+
+        .hero-band h1 .line-1 { display: block; }
+        .hero-band h1 .line-2 {
+            display: block;
+            font-size: 0.5em;
+            opacity: 0.85;
+            margin-top: 4px;
+        }
+
+        .hero-band p.lede {
+            font-size: 1.2rem;
+            max-width: 56ch;
+            opacity: 0.94;
+            margin-bottom: 30px;
+        }
+
+        .btn-row { display: flex; flex-wrap: wrap; gap: 14px; }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 13px 28px;
+            border-radius: 30px;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .btn-primary {
+            background: var(--brick);
+            color: var(--paper);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.3); }
+
+        .btn-ghost {
+            border: 2px solid rgba(251,249,244,0.55);
+            color: var(--paper);
+        }
+        .btn-ghost:hover { border-color: var(--paper); }
+
+        /* ============ Bio card ============ */
+        .bio-row {
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .avatar-placeholder {
+            flex: 0 0 auto;
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            border: 2px dashed var(--pine);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 600;
+            color: var(--pine);
+            opacity: 0.7;
+            background: rgba(56,102,65,0.06);
+        }
+
+        .bio-text { flex: 1 1 260px; }
+
+        .bio-name {
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-transform: none;
+            margin-bottom: 2px;
+        }
+
+        .bio-role {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--pine);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .link-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 18px;
+            margin-top: 14px;
+            font-size: 0.95rem;
+        }
+
+        .link-row a { text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+        .link-row a:hover { text-decoration-color: currentColor; }
+
+        /* ============ How it works / criteria ============ */
+        .steps {
+            list-style: none;
+            counter-reset: step;
+            margin: 20px 0;
+        }
+        .steps li {
+            counter-increment: step;
+            position: relative;
+            padding-left: 34px;
+            margin-bottom: 14px;
+        }
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0; top: 0;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            background: var(--pine);
+            color: var(--paper);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .subhead {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--ink);
+            opacity: 0.65;
+            margin: 28px 0 4px;
+        }
+        .subhead:first-of-type { margin-top: 0; }
+
+        .criteria-box {
+            background: rgba(251, 249, 244, 0.8);
+            border-left: 4px solid var(--pine);
+            border-radius: 6px;
+            padding: 22px 26px;
+            margin-top: 8px;
+        }
+
+        /* ============ Offer list ============ */
+        ul.offer-list { list-style: none; margin: 22px 0; }
+        ul.offer-list li {
+            position: relative;
+            padding-left: 26px;
+            margin-bottom: 12px;
+        }
+        ul.offer-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--amber);
+            font-weight: 700;
+        }
+
+        .illustration-slot {
+            margin-top: 24px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--rule);
+            aspect-ratio: 4 / 3;
+            max-width: 380px;
+        }
+        .illustration-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* ============ Callout ============ */
+        .callout {
+            background: var(--paper);
+            border-left: 4px solid var(--teal);
+            border-radius: 6px;
+            padding: 24px 28px;
+        }
+
+        /* ============ Closing (terminus band) ============ */
+        .closing-band {
+            --band-bg: var(--pine);
+            --line-color: var(--paper);
+            background: var(--pine);
+            color: var(--paper);
+        }
+        .closing-band .eyebrow { color: var(--paper); opacity: 0.75; }
+        .closing-band h2 { color: var(--paper); }
+        .closing-band .content p { opacity: 0.95; }
+        .closing-band .link-row a { text-decoration-color: rgba(251,249,244,0.4); }
+
+        footer {
+            text-align: center;
+            padding: 26px 0;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            color: var(--ink);
+            opacity: 0.5;
+        }
+
+        /* ============ Responsive ============ */
+        @media (max-width: 640px) {
+            .content { padding-left: 44px; max-width: none; }
+            .pos-left, .pos-right { left: 20px; right: auto; }
+            .station-code { display: none; }
+            .content h2 { font-size: 1.55rem; }
+            .avatar-placeholder { width: 76px; height: 76px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="brand-strip">
+        <div class="container">
+            
+                <img src="images/all_abroad.png" alt="Pine Economics logo">
+                <span></span>
+            
+        </div>
+    </div>
+
+    <div id="line-track">
+    <svg id="line-svg" aria-hidden="true"></svg>
+
+    <!-- C1 — Hero / terminus -->
+    <section class="band hero-band">
+        <div class="container">
+            <div class="rail-section">
+                <div class="station terminus terminus-start pos-left"></div>
+                <div class="content">
+                    <span class="eyebrow">The Career Train</span>
+                    <h1><span class="line-1">All Aboard:</span><span class="line-2">Career Surgery</span></h1>
+                    <p class="lede">Free, one-to-one time with an experienced professional — for anyone who hasn't had their first job yet.</p>
+                    <div class="btn-row">
+                        <a class="btn btn-primary" href="mailto:omer@pineconomics.com?subject=Career%20Surgery">All aboard</a>
+                        <a class="btn btn-ghost" href="#is-this-for-you">See how it works ↓</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- O1 — Why this, why now (line change: pine → amber) -->
+    <section class="band" style="--band-bg: var(--paper);">
+    <div class="legend">
+        <div class="container">
+            <div class="legend-row">
+                <span class="legend-item"><span class="legend-dot" style="background: var(--pine);"></span>C — Context</span>
+                <span class="legend-item"><span class="legend-dot" style="background: var(--amber);"></span>O — Offer</span>
+                <span class="legend-item"><span class="legend-dot" style="background: var(--teal);"></span>T — Terms</span>
+                <span class="legend-item"><span class="legend-dot" style="background: var(--brick);"></span>A — Action</span>
+            </div>
+        </div>
+    </div>
+        <div class="container">
+            <div class="rail-section" style="--line-color: var(--amber);">
+                <div class="station interchange pos-left" data-color="#C68A2E"></div>
+                <div class="station-code pos-left">C1</div>
+                <div class="content">
+                    <span class="eyebrow">C1 · What's changed</span>
+                    <h2>Why this, why now</h2>
+                    <p>AI has changed what a small, experienced team can do on its own. Work that used to go to someone starting out is now work an experienced person does directly, with a tool instead of a junior colleague.</p>
+                    <p>That's good for people already in work. It's bad for people trying to get in. And it's bad for everyone eventually — today's experienced people were once beginners who got given real tasks to learn on. If that goes away, there is no one to teach the next generation of experienced people.</p>
+                    <div class="illustration-slot">
+                        <img src="images/career-surgery-line-illustration.png" alt="Illustration of a schematic transit line with one branch narrowing to a single track" loading="lazy" onerror="this.closest('.illustration-slot').style.display='none'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- O2 — What I offer -->
+    <section class="band" style="--band-bg: var(--tint);">
+        <div class="container">
+            <div class="rail-section" style="--line-color: var(--amber);">
+                <div class="station pos-left" data-color="#C68A2E"></div>
+                <div class="station-code pos-left">O1</div>
+                <div class="content">
+                    <span class="eyebrow">O1 · What I offer</span>
+                    <h2>What I'm offering</h2>
+                    <p>I use AI in my own work, and I benefit from it. That makes me part of the problem I've just described.</p>
+                    <p>So I'm offering some time back. I can't offer a job — but I can try to help you with advice:</p>
+                    <ul class="offer-list">
+                        <li>How to approach a potential employer, and what to actually say</li>
+                        <li>What skills are worth building right now</li>
+                        <li>How to present a project or piece of work so it lands well</li>
+                        <li>How to use AI well, as an extention of your brain, not a replacement</li>
+                        <li>An introduction, where I know someone relevant to you</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- O3 — How it works / Is this for you -->
+    <section class="band" id="is-this-for-you" style="--band-bg: var(--paper);">
+        <div class="container">
+            <div class="rail-section" style="--line-color: var(--amber);">
+                <div class="station pos-right" data-color="#C68A2E"></div>
+                <div class="station-code pos-right">O2</div>
+                <div class="content">
+                    <span class="eyebrow">O2 · Is this for you?</span>
+                    <h2>How it works</h2>
+                    <ol class="steps">
+                        <li>You email me a bit about your training and skills, where you want to be, and what you've already tried.</li>
+                        <li>If it looks like a good fit, we set up one call — up to 30 minutes.</li>
+                        <li>In the call, we'll discuss your situation and how I might be able to help. This is work in progress for me too.</li>
+                    </ol>
+                    <p class="subhead">Who it's for</p>
+                    <div class="criteria-box">
+                        <p>Anyone who hasn't had their first "adult job" yet.</p>
+                        <p>I'll prioritise the people I think I can actually help. In practice, that means I'm most useful to people living in the UK with the legal right to work here, who wants to enter the transport sector — it's the market I know.</p>
+                        <p>If that's not you, this probably isn't the right thing.</p><p  style="margin-bottom:0;">Have a look at my <a href="index.html" style="text-decoration:underline;">website</a>, <a href="https://www.linkedin.com/in/omer-bor-54328061/" target="_blank" rel="noopener">LinkedIn</a> profile and <a href="https://pineconomics.substack.com" target="_blank" rel="noopener" style="text-decoration:underline;">Substack</a> to learn more about what I do and whether it's relevant for you.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- T1 — Advisor bio (line change: amber → teal) -->
+    <section class="band" style="--band-bg: var(--tint);">
+        <div class="container">
+            <div class="rail-section" style="--line-color: var(--teal);">
+                <div class="station interchange pos-left" data-color="#2B6E77"></div>
+                <div class="station-code pos-left">O3</div>
+                <div class="content">
+                    <span class="eyebrow">O3 · Your advisor</span>
+                    <div class="bio-row">
+                        <div class="avatar-placeholder" title="Photo coming soon">OB</div>
+                        <div class="bio-text">
+                            <div class="bio-name">Omer Bor</div>
+                            <span class="bio-role">Founding Advisor, Pine Economics</span>
+                            <p>I'm a transport economist — ex-Department for Transport, Network Rail, Haskoning UK. This is a Pine Economics initiative; for now, I'm the one who answers the emails. I hope others will join me in the future</p>
+                            <div class="link-row">
+                                <a href="index.html">pineconomics.com</a>
+                                <a href="https://www.linkedin.com/in/omer-bor-54328061/" target="_blank" rel="noopener">LinkedIn</a>
+                                <a href="https://pineconomics.substack.com" target="_blank" rel="noopener">Beyond the BCR (my newsletter)</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- T2 — What I expect -->
+    <section class="band" style="--band-bg: var(--paper);">
+        <div class="container">
+            <div class="rail-section" style="--line-color: var(--teal);">
+                <div class="station pos-left" data-color="#2B6E77"></div>
+                <div class="station-code pos-left">T1</div>
+                <div class="content">
+                    <span class="eyebrow">T1 · What I expect</span>
+                    <h2>What I expect from you</h2>
+                    <p>I expect you want a job — now, or soon.</p>
+                    <p>I expect you've done some homework before you get in touch: roughly what's out there and what you might want to do.</p><p>It's fine not to be sure — I wasn't sure what I wanted to do even a few years after I started working. But you should ask yourself the question first.</p></p> 
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- C2 — What I'm hoping happens (line change: teal → pine) -->
+    <section class="band" style="--band-bg: var(--tint);">
+        <div class="container">
+            <div class="rail-section" style="--line-color: var(--pine);">
+                <div class="station interchange pos-right" data-color="#386641"></div>
+                <div class="station-code pos-right">C2</div>
+                <div class="content">
+                    <span class="eyebrow">C2 · What I'm hoping happens</span>
+                    <h2>What I'm hoping happens</h2>
+                    <p>If this works, the people I talk to get better at finding a first job, better at presenting themselves and their work, and better at putting a project or a piece of freelance work in front of someone who might pay for it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- T3 — A note on data (line change: pine → teal) -->
+    <section class="band" style="--band-bg: var(--paper);">
+        <div class="container">
+            <div class="rail-section" style="--line-color: var(--teal);">
+                <div class="station interchange pos-left" data-color="#2B6E77"></div>
+                <div class="station-code pos-left">T2</div>
+                <div class="content">
+                    <span class="eyebrow">T2 · About the data</span>
+                    <h2>A note on data</h2>
+                    <p>Alongside the individual conversations, I'm keeping a record of the barriers people describe to me — not who they are, just what's getting in the way. Enough of that, collected honestly, might eventually be useful to more than one person at a time. No one is named or identifiable in it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- A1 — Get in touch / terminus -->
+    <section class="band closing-band">
+        <div class="container">
+            <div class="rail-section" style="--line-color: var(--paper);">
+                <div class="station terminus terminus-end pos-left" data-color="#BC4749"></div>
+                <div class="station-code pos-left" style="color: var(--paper); opacity:0.75;">A1</div>
+                <div class="content">
+                    <span class="eyebrow">A1 · End of the line</span>
+                    <h2>Get in touch</h2>
+                    <p>Tell me a bit about where you're at, and what you've already tried.</p>
+                    <div class="btn-row" style="margin-bottom: 18px;">
+                        <a class="btn btn-primary" href="mailto:omer@pineconomics.com?subject=Career%20Surgery">All aboard — omer@pineconomics.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div><!-- /#line-track -->
+
+    <footer>All Aboard: CAREER SURGERY</footer>
+
+    <script>
+        // The line is drawn here, not in CSS: we measure where each station
+        // actually renders — some sit left, some sit right, past the end of
+        // the text — and route between them the way a real metro map is
+        // drawn: a straight run, then a 45° diagonal onto a 90° run into the
+        // next station, never an arbitrary-angle line. It's semi-transparent
+        // and sits behind the text (z-index 1 vs the text's z-index 2), so it
+        // can cut behind a paragraph without hurting legibility. The hero
+        // terminus (terminus-start) is left unconnected — the line starts
+        // there, it doesn't run in from off-page. The closing terminus
+        // (terminus-end) IS connected, so the line runs all the way to A2.
+        (function () {
+            const track = document.getElementById('line-track');
+            const svg = document.getElementById('line-svg');
+            const NS = 'http://www.w3.org/2000/svg';
+
+            function routePath(a, b) {
+                const dx = b.x - a.x, dy = b.y - a.y;
+                const diag = Math.min(Math.abs(dx), Math.abs(dy));
+                const mx = a.x + Math.sign(dx) * diag;
+                const my = a.y + Math.sign(dy) * diag;
+                return `M ${a.x} ${a.y} L ${mx} ${my} L ${b.x} ${b.y}`;
+            }
+
+            function draw() {
+                while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+                const stations = Array.from(document.querySelectorAll('.station:not(.terminus-start)'));
+                const trackRect = track.getBoundingClientRect();
+
+                svg.setAttribute('width', track.clientWidth);
+                svg.setAttribute('height', track.scrollHeight);
+                svg.style.width = track.clientWidth + 'px';
+                svg.style.height = track.scrollHeight + 'px';
+
+                const points = stations.map(el => {
+                    const r = el.getBoundingClientRect();
+                    return {
+                        x: r.left - trackRect.left + r.width / 2,
+                        y: r.top - trackRect.top + r.height / 2,
+                        color: el.getAttribute('data-color') || '#386641',
+                        // optional: recolour just the incoming segment, leaving
+                        // the dot itself and the group colour untouched
+                        segmentColor: el.getAttribute('data-segment-color')
+                    };
+                });
+
+                for (let i = 0; i < points.length - 1; i++) {
+                    const a = points[i], b = points[i + 1];
+                    const path = document.createElementNS(NS, 'path');
+                    path.setAttribute('d', routePath(a, b));
+                    path.setAttribute('stroke', b.segmentColor || b.color);
+                    path.setAttribute('stroke-width', '2.5');
+                    path.setAttribute('fill', 'none');
+                    path.setAttribute('stroke-linecap', 'round');
+                    path.setAttribute('opacity', '0.28');
+                    svg.appendChild(path);
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', draw);
+            window.addEventListener('load', draw);
+            if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(draw, 120);
+            });
+        })();
+
+        // Highlight the current station as its section scrolls through view.
+        // Purely additive — respects prefers-reduced-motion via the CSS above.
+        if ('IntersectionObserver' in window) {
+            const sections = document.querySelectorAll('.rail-section');
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    entry.target.classList.toggle('is-active', entry.isIntersecting);
+                });
+            }, { rootMargin: '-40% 0px -40% 0px' });
+            sections.forEach(s => io.observe(s));
+        }
+    </script>
+
+</body>
+</html>
