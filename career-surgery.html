@@ -135,9 +135,9 @@
         .legend-row {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 10px 22px;
-            left: 35%;
-            position: absolute;
+            width: 100%;
         }
 
         .legend-item {
@@ -285,6 +285,10 @@
         }
 
         .hero-band .eyebrow { color: var(--paper); opacity: 0.75; }
+
+        /* Nudge the hero dot down past the small eyebrow line so it sits
+           level with "All Aboard:" instead of the tiny label above it */
+        .hero-band .station.terminus { top: 62px; }
 
         .hero-band h1 {
             font-size: clamp(2.2rem, 6vw, 3.6rem);
@@ -545,8 +549,8 @@
         </div>
     </div>
         <div class="container">
-            <div class="rail-section" style="--line-color: var(--amber);">
-                <div class="station interchange pos-left" data-color="#C68A2E"></div>
+            <div class="rail-section" style="--line-color: var(--pine);">
+                <div class="station pos-left" data-color="#386641"></div>
                 <div class="station-code pos-left">C1</div>
                 <div class="content">
                     <span class="eyebrow">C1 · What's changed</span>
@@ -565,7 +569,7 @@
     <section class="band" style="--band-bg: var(--tint);">
         <div class="container">
             <div class="rail-section" style="--line-color: var(--amber);">
-                <div class="station pos-left" data-color="#C68A2E"></div>
+                <div class="station interchange pos-left" data-color="#C68A2E"></div>
                 <div class="station-code pos-left">O1</div>
                 <div class="content">
                     <span class="eyebrow">O1 · What I offer</span>
@@ -576,7 +580,7 @@
                         <li>How to approach a potential employer, and what to actually say</li>
                         <li>What skills are worth building right now</li>
                         <li>How to present a project or piece of work so it lands well</li>
-                        <li>How to use AI well, as an extention of your brain, not a replacement</li>
+                        <li>How to use AI well, as an extension of your brain, not a replacement</li>
                         <li>An introduction, where I know someone relevant to you</li>
                     </ul>
                 </div>
@@ -601,7 +605,7 @@
                     <p class="subhead">Who it's for</p>
                     <div class="criteria-box">
                         <p>Anyone who hasn't had their first "adult job" yet.</p>
-                        <p>I'll prioritise the people I think I can actually help. In practice, that means I'm most useful to people living in the UK with the legal right to work here, who wants to enter the transport sector — it's the market I know.</p>
+                        <p>I'll prioritise the people I think I can actually help. In practice, that means I'm most useful to people living in the UK with the legal right to work here, who want to enter the transport sector — it's the market I know.</p>
                         <p>If that's not you, this probably isn't the right thing.</p><p  style="margin-bottom:0;">Have a look at my <a href="index.html" style="text-decoration:underline;">website</a>, <a href="https://www.linkedin.com/in/omer-bor-54328061/" target="_blank" rel="noopener">LinkedIn</a> profile and <a href="https://pineconomics.substack.com" target="_blank" rel="noopener" style="text-decoration:underline;">Substack</a> to learn more about what I do and whether it's relevant for you.</p>
                     </div>
                 </div>
@@ -612,8 +616,8 @@
     <!-- T1 — Advisor bio (line change: amber → teal) -->
     <section class="band" style="--band-bg: var(--tint);">
         <div class="container">
-            <div class="rail-section" style="--line-color: var(--teal);">
-                <div class="station interchange pos-left" data-color="#2B6E77"></div>
+            <div class="rail-section" style="--line-color: var(--amber);">
+                <div class="station pos-left" data-color="#C68A2E"></div>
                 <div class="station-code pos-left">O3</div>
                 <div class="content">
                     <span class="eyebrow">O3 · Your advisor</span>
@@ -622,7 +626,7 @@
                         <div class="bio-text">
                             <div class="bio-name">Omer Bor</div>
                             <span class="bio-role">Founding Advisor, Pine Economics</span>
-                            <p>I'm a transport economist — ex-Department for Transport, Network Rail, Haskoning UK. This is a Pine Economics initiative; for now, I'm the one who answers the emails. I hope others will join me in the future</p>
+                            <p>I'm a transport economist — ex-Department for Transport, Network Rail, Haskoning UK. This is a Pine Economics initiative; for now, I'm the one who answers the emails. I hope others will join me in the future.</p>
                             <div class="link-row">
                                 <a href="index.html">pineconomics.com</a>
                                 <a href="https://www.linkedin.com/in/omer-bor-54328061/" target="_blank" rel="noopener">LinkedIn</a>
@@ -639,13 +643,13 @@
     <section class="band" style="--band-bg: var(--paper);">
         <div class="container">
             <div class="rail-section" style="--line-color: var(--teal);">
-                <div class="station pos-left" data-color="#2B6E77"></div>
+                <div class="station interchange pos-left" data-color="#2B6E77"></div>
                 <div class="station-code pos-left">T1</div>
                 <div class="content">
                     <span class="eyebrow">T1 · What I expect</span>
                     <h2>What I expect from you</h2>
                     <p>I expect you want a job — now, or soon.</p>
-                    <p>I expect you've done some homework before you get in touch: roughly what's out there and what you might want to do.</p><p>It's fine not to be sure — I wasn't sure what I wanted to do even a few years after I started working. But you should ask yourself the question first.</p></p> 
+                    <p>I expect you've done some homework before you get in touch: roughly what's out there and what you might want to do.</p><p>It's fine not to be sure — I wasn't sure what I wanted to do even a few years after I started working. But you should ask yourself the question first.</p>
                 </div>
             </div>
         </div>
