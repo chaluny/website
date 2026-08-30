@@ -494,11 +494,17 @@
 
         /* ============ Responsive ============ */
         @media (max-width: 640px) {
-            .content { padding-left: 44px; max-width: none; }
-            .pos-left, .pos-right { left: 20px; right: auto; }
+            /* Keep pos-left/pos-right distinct (don't collapse to one x) so the
+               line still bends on mobile instead of running dead straight —
+               just reserve a little room on the right for that dot to sit in. */
+            .content { padding-left: 44px; padding-right: 38px; }
             .station-code { display: none; }
             .content h2 { font-size: 1.55rem; }
             .avatar-placeholder { width: 76px; height: 76px; font-size: 0.85rem; }
+            /* The terminus dot is bigger than a regular station and the
+               headline is bold/wide — give it more clearance than the 44px
+               other sections use, so it doesn't sit on top of "ALL ABOARD:" */
+            .hero-band .content { padding-left: 70px; }
         }
     </style>
 </head>
@@ -522,12 +528,11 @@
             <div class="rail-section">
                 <div class="station terminus terminus-start pos-left"></div>
                 <div class="content">
-                    <span class="eyebrow">The Career Train</span>
+                    
                     <h1><span class="line-1">All Aboard:</span><span class="line-2">Career Surgery</span></h1>
-                    <p class="lede">Free, one-to-one time with an experienced professional — for anyone who hasn't had their first job yet.</p>
+                    <p class="lede">Free, one-to-one time with an experienced professional — for anyone who hasn't had their first career job yet.</p>
                     <div class="btn-row">
-                        <a class="btn btn-primary" href="mailto:info@pineconomics.com?subject=Career%20Surgery">All aboard</a>
-                        <a class="btn btn-ghost" href="#is-this-for-you">See how it works ↓</a>
+                        <a class="btn btn-primary" href="#start-reading">Read below ↓</a>
                     </div>
                 </div>
             </div>
@@ -537,7 +542,7 @@
     </section>
 
     <!-- O1 — Why this, why now (line change: pine → amber) -->
-    <section class="band" style="--band-bg: var(--paper);">
+    <section class="band" id="start-reading" style="--band-bg: var(--paper);">
     <div class="legend">
         <div class="container">
             <div class="legend-row">
@@ -604,7 +609,7 @@
                     </ol>
                     <p class="subhead">Who it's for</p>
                     <div class="criteria-box">
-                        <p>Anyone who hasn't had their first "adult job" yet.</p>
+                        <p>Anyone who hasn't had their first career job yet.</p>
                         <p>I'll prioritise the people I think I can actually help. In practice, that means I'm most useful to people living in the UK with the legal right to work here, who want to enter the transport sector — it's the market I know.</p>
                         <p>If that's not you, this probably isn't the right thing.</p><p  style="margin-bottom:0;">Have a look at my <a href="index.html" style="text-decoration:underline;">website</a>, <a href="https://www.linkedin.com/in/omer-bor-54328061/" target="_blank" rel="noopener">LinkedIn</a> profile and <a href="https://pineconomics.substack.com" target="_blank" rel="noopener" style="text-decoration:underline;">Substack</a> to learn more about what I do and whether it's relevant for you.</p>
                     </div>
@@ -626,7 +631,7 @@
                         <div class="bio-text">
                             <div class="bio-name">Omer Bor</div>
                             <span class="bio-role">Pine Economics</span>
-                            <p>I'm a transport economist — ex-Department for Transport, Network Rail, Jacobs and Haskoning UK. Now I my own consultancy and this is a personal initiative.</p>
+                            <p>I'm a transport economist — ex-Department for Transport, Network Rail, Jacobs and Haskoning UK. Now I run my own consultancy and this is a personal initiative.</p>
                             <div class="link-row">
                                 <a href="index.html">pineconomics.com</a>
                                 <a href="https://www.linkedin.com/in/omer-bor-54328061/" target="_blank" rel="noopener">LinkedIn</a>
@@ -733,13 +738,20 @@
             function draw() {
                 while (svg.firstChild) svg.removeChild(svg.firstChild);
 
+                // Collapse the svg BEFORE measuring — otherwise track.scrollHeight
+                // includes this element's own previous (already-set) height, and
+                // every redraw ratchets the page taller than the last, never
+                // shrinking back down.
+                svg.style.height = '0px';
+
                 const stations = Array.from(document.querySelectorAll('.station:not(.terminus-start)'));
                 const trackRect = track.getBoundingClientRect();
+                const trueHeight = track.scrollHeight;
 
                 svg.setAttribute('width', track.clientWidth);
-                svg.setAttribute('height', track.scrollHeight);
+                svg.setAttribute('height', trueHeight);
                 svg.style.width = track.clientWidth + 'px';
-                svg.style.height = track.scrollHeight + 'px';
+                svg.style.height = trueHeight + 'px';
 
                 const points = stations.map(el => {
                     const r = el.getBoundingClientRect();
